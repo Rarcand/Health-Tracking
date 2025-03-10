@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Button, Dimensions } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { router, Link } from 'expo-router'; 
+import { router } from 'expo-router'; 
 
 export default function ProgramScreen() {
 
@@ -21,7 +20,7 @@ export default function ProgramScreen() {
       </View>
     );
   }
-  
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>{patientName}'s Home Exercise Program</Text>
