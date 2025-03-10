@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Health-Tracking",
-    "slug": "Health-Tracking",
+    "name": "PT-App",
+    "slug": "PT-App",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
