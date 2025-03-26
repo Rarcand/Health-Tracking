@@ -4,6 +4,9 @@ import { ThemedView } from '@/components/ThemedView';
 import Carousel from '@/components/Carousel';
 import React, { useState } from 'react';
 
+// @ts-ignore
+import { db, auth } from "./Firebase";
+
 // Get current date
 const currentDate = new Date().toLocaleDateString(undefined, {
   weekday: 'long',
