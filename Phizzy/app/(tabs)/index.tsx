@@ -3,9 +3,8 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import Carousel from '@/components/Carousel';
 import React, { useState } from 'react';
+import firestore from '@react-native-firebase/firestore';
 
-// @ts-ignore
-import { db, auth } from "./Firebase";
 
 // Get current date
 const currentDate = new Date().toLocaleDateString(undefined, {
