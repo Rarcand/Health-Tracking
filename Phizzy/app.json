@@ -10,13 +10,14 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.convergent.phizzy"  
+      "bundleIdentifier": "com.convergent.phizzy"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.convergent.phizzy"
     },
     "web": {
       "bundler": "metro",
@@ -37,7 +38,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "701dfac2-f4c8-4450-ad7f-dd5bda7a708d"
+      }
     }
   }
 }
-

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
-import { View, Text, ScrollView, Dimensions, StyleSheet, TouchableOpacity, ViewStyle } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import the icon library
+import { View, Text, ScrollView, Dimensions, StyleSheet, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { completionMap } from '@/app/weekPlanScreen/[week]';
 
 const { width } = Dimensions.get('window');
 
@@ -8,31 +9,55 @@ const Carousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollRef = useRef<ScrollView>(null);
 
-  // Define pages with icons and text
+  const weekNumber = 1;
+  const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const shortDays = ['Su', 'M', 'T', 'W', 'Th', 'F', 'Sa'];
+
+  const completedDays = daysOfWeek.map((day, index) => {
+    const exercises = completionMap[weekNumber]?.[day] || [];
+    const allDone = exercises.length > 0 && exercises.every((done) => done);
+    return allDone ? index : null;
+  }).filter((i): i is number => i !== null);
+
+  // Calculate current streak including today and yesterday if connected
+  let streakCount = 0;
+  const todayIndex = new Date().getDay();
+  for (let i = todayIndex; i >= 0; i--) {
+    if (completedDays.includes(i)) {
+      streakCount++;
+    } else {
+      break;
+    }
+  }
+
+  // Include yesterday if today is incomplete but yesterday is complete
+  if (!completedDays.includes(todayIndex) && completedDays.includes(todayIndex - 1)) {
+    streakCount = 1;
+  }
+
   const pages = [
-    <View style={styles.page}>
+    <View key="page1" style={styles.page}>
       <Icon name="star" size={iconSize} color="#FFD700" />
       <Text style={styles.title}>Keep up the good work Andrew!</Text>
       <Text style={styles.subtitle}>3 more days until I reach [next milestone]</Text>
     </View>,
-    <View style={styles.page}>
-      <Text style={styles.streakTitle}>8 Day Streak</Text>
-      <Icon name="fire" size={iconSize} color="#FF6A00" />
+    <View key="page2" style={styles.page}>
+      <View style={styles.streakHeader}>
+        <Icon name="fire" size={30} color="#FF6A00" />
+        <Text style={styles.streakTitle}>{streakCount} Day Streak</Text>
+      </View>
       <View style={styles.daysContainer}>
-        {['Su', 'M', 'T', 'W', 'Th', 'F', 'Sa'].map((day, index) => (
+        {shortDays.map((day, index) => (
           <View
             key={index}
-            style={[
-              styles.dayCircle,
-              index === 1 ? styles.activeDay : styles.inactiveDay, // Highlight Monday as active
-            ]}
+            style={[styles.dayCircle, completedDays.includes(index) ? styles.activeDay : styles.inactiveDay]}
           >
             <Text style={styles.dayText}>{day}</Text>
           </View>
         ))}
       </View>
     </View>,
-    <View style={styles.page}>
+    <View key="page3" style={styles.page}>
       <Text style={styles.badgeTitle}>Newest Badge</Text>
       <Icon name="medal" size={iconSize} color="#FFD700" />
       <Text style={styles.badgeName}>Beast Mode</Text>
@@ -63,8 +88,8 @@ const Carousel = () => {
         contentContainerStyle={styles.scrollViewContent}
       >
         {pages.map((page, index) => (
-          <View key={index} style={[styles.pageContainer, { width }]}>
-            {page}
+          <View key={index} style={[styles.pageContainer, { width }]}> 
+            {page} 
           </View>
         ))}
       </ScrollView>
@@ -73,10 +98,7 @@ const Carousel = () => {
         {pages.map((_, index) => (
           <TouchableOpacity key={index} onPress={() => scrollToIndex(index)}>
             <View
-              style={[
-                styles.dot,
-                activeIndex === index ? styles.activeDot : styles.inactiveDot,
-              ]}
+              style={[styles.dot, activeIndex === index ? styles.activeDot : styles.inactiveDot]}
             />
           </TouchableOpacity>
         ))}
@@ -108,11 +130,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 10,
   },
+  streakHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 10,
+  },
   streakTitle: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: -10,
+    color: '#FF6A00',
   },
   dayCircle: {
     width: width * 0.1,
@@ -135,7 +162,7 @@ const styles = StyleSheet.create({
   },
   daysContainer: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -154,10 +181,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#888',
     marginBottom: 5,
+    textAlign: 'center',
   },
   nextBadge: {
     fontSize: 16,
     color: '#333',
+    textAlign: 'center',
   },
   dotsContainer: {
     flexDirection: 'row',
@@ -179,6 +208,6 @@ const styles = StyleSheet.create({
   },
 });
 
-const iconSize = 100; // Define iconSize as a number
+const iconSize = 100;
 
 export default Carousel;
