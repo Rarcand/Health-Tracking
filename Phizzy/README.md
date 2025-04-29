@@ -1,50 +1,102 @@
-# Welcome to your Expo app 👋
+# Phizzy - Health Tracking App
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Phizzy is a React Native mobile application built with Expo that helps users track their fitness progress through exercise videos and personalized workout programs.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **User Authentication**: Secure login system with parent code verification
+- **Personalized Workout Programs**: Dynamic week-based exercise programs
+- **Exercise Video Recording**: Record and upload exercise videos for form checking
+- **Video Library**: View and manage recorded exercise videos
+- **Progress Tracking**: Track completion of exercises and weekly progress
+- **Avatar Selection**: Customize user profile with avatar selection
+- **Modern UI**: User-friendly interface with consistent styling
 
+## Technical Stack
+
+- **Frontend**: React Native with Expo
+- **Backend**: Firebase
+  - Authentication
+  - Storage (for video uploads)
+  - Firestore (for program data)
+- **Routing**: Expo Router with file-based routing
+- **Styling**: React Native StyleSheet with custom theme support
+
+## Project Structure
+
+- `/app`: Main application screens and navigation
+  - `/(tabs)`: Tab-based navigation screens
+  - `/exercise`: Dynamic exercise pages
+  - `/week`: Dynamic week pages
+- `/firebase`: Firebase integration
+  - `program.ts`: Program data management
+  - `videos.ts`: Video upload and management
+  - `avatars.ts`: Avatar management
+- `/components`: Reusable UI components
+- `/constants`: Application constants
+- `/hooks`: Custom React hooks
+- `/assets`: Static assets (images, fonts)
+
+## Getting Started
+
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the app
+2. Set up Firebase:
+   - Create a Firebase project
+   - Update `firebaseConfig.js` with your Firebase credentials
+   - Enable Authentication, Storage, and Firestore in your Firebase console
 
+3. Start the development server:
    ```bash
-    npx expo start
+   npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+4. Run on your preferred platform:
+   - iOS Simulator
+   - Android Emulator
+   - Physical device using Expo Go
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+## Key Features Implementation
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+### Exercise Program Management
+- Dynamic week and exercise pages
+- Progress tracking for each week
+- Exercise details with sets and descriptions
 
-## Get a fresh project
+### Video Recording and Management
+- Video recording using device camera
+- Upload to Firebase Storage with progress tracking
+- Video playback and management interface
+- Exercise-specific video organization
 
-When you're ready, run:
+### User Interface
+- Modern design with orange accent color (#FF6B6B)
+- Responsive design for various screen sizes
+- Loading states and error handling
+- Smooth navigation between screens
 
-```bash
-npm run reset-project
-```
+## Development
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+The application uses a file-based routing system with Expo Router. Key files include:
 
-## Learn more
+- `app/_layout.tsx`: Root layout and theme provider
+- `app/(tabs)/_layout.tsx`: Tab navigation configuration
+- `app/exercise/[exerciseName].tsx`: Dynamic exercise pages
+- `app/week/[weekNumber].tsx`: Dynamic week pages
+- `app/play.tsx`: Video recording interface
+- `app/upload-complete.tsx`: Upload confirmation screen
 
-To learn more about developing your project with Expo, look at the following resources:
+## Contributing
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+1. Fork the repository
+2. Create your feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a new Pull Request
 
-## Join the community
+## License
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+This project is licensed under the MIT License.
